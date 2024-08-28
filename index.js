@@ -62,7 +62,7 @@ app.post('/addSchool', async (req, res) => {
       VALUES ($1, $2, $3, $4)
       RETURNING *;
     `;
-    await connect()
+
     
     const result = await client.query(insertQuery, [name, address, lat, long]);
 
