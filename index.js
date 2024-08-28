@@ -62,6 +62,7 @@ app.post('/addSchool', async (req, res) => {
       VALUES ($1, $2, $3, $4)
       RETURNING *;
     `;
+    await connect()
     
     const result = await client.query(insertQuery, [name, address, lat, long]);
 
@@ -104,6 +105,7 @@ app.get('/listschools/:latitude/:longitude', async (req, res) => {
     const userLocation = { latitude: parseFloat(latitude), longitude: parseFloat(longitude) };
 
     // Fetch all schools from the database
+    
     const result = await client.query('SELECT * FROM d');
     const schools = result.rows;
 

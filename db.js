@@ -33,6 +33,10 @@ async function connectAndCreateTable() {
     console.log('Table "d" created successfully');
   } catch (err) {
     console.error('Database setup error:', err);
+  } finally {
+    // Close the connection to the database
+   
+    console.log('Database connection closed');
   }
 }
 
