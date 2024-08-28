@@ -10,6 +10,45 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.json({
+      message: "Welcome My Assesment",
+      endpoints: {
+        "/addSchool": {
+          method: "POST",
+          description: "Add a new school to the database.",
+          body: {
+            name: "School name (string)",
+            address: "School address (string)",
+            lat: "Latitude of the school (float)",
+            long: "Longitude of the school (float)"
+          },
+          example_input:{
+            name:'Mountain Peak Academy',
+            address:'555 Summit Road, Peak Town',
+            lat:'39.7392',
+            long:'-104.9903'
+          }
+        },
+        "/listschools/:latitude/:longitude": {
+          method: "GET",
+          description: "Retrieve a list of schools sorted by proximity to the specified location.",
+          params: {
+            latitude: "User's latitude (float)",
+            longitude: "User's longitude (float)"
+          }
+          ,
+          example_input:{
+            latitude:"39.7392",
+            longitude:'-104.9903'
+          }
+        }
+      }
+    });
+  });
+
+
+
 app.post('/addSchool', async (req, res) => {
   try {
     const { name, address, lat, long } = req.body;
