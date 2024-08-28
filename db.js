@@ -14,33 +14,24 @@ const client = new Client({
   },
 });
 
-async function connectAndCreateTable() {
-  try {
-    await client.connect();
-    console.log('Connected to the database');
-    
-    const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS d (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100),
-        address VARCHAR(255),
-        latitude FLOAT,
-        longitude FLOAT
-      );
-    `;
-    
-    await client.query(createTableQuery);
-    console.log('Table "d" created successfully');
-  } catch (err) {
-    console.error('Database setup error:', err);
-  } finally {
-    // Close the connection to the database
-   
-    console.log('Database connection closed');
-  }
-}
-
-// Initialize the database connection and setup
-connectAndCreateTable();
+try {
+ client.connect();
+  console.log('Connected to the database');
+  
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS d (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100),
+      address VARCHAR(255),
+      latitude FLOAT,
+      longitude FLOAT
+    );
+  `;
+  
+  client.query(createTableQuery);
+  console.log('Table "d" created successfully');
+} catch (err) {
+  console.error('Database setup error:', err);
+} 
 
 module.exports = { client };
